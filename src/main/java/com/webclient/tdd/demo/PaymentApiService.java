@@ -1,6 +1,7 @@
 package com.webclient.tdd.demo;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -26,5 +27,15 @@ public class PaymentApiService {
                 .uri("/api/authentication")
                 .retrieve()
                 .bodyToMono(String.class);
+    }
+
+    public ResponseEntity<Void> postPayment(Payment payment) {
+        return paymentApiWebClient
+                .post()
+                .uri("/api/payment")
+                .body(payment, Payment.class)
+                .retrieve()
+                .toBodilessEntity()
+                .block();
     }
 }
