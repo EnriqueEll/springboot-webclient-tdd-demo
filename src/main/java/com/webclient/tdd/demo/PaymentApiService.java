@@ -1,10 +1,11 @@
 package com.webclient.tdd.demo;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Mono;
+import reactor.core.publisher.Flux;
 
 @Service
 public class PaymentApiService {
@@ -17,25 +18,19 @@ public class PaymentApiService {
     }
 
     @Bean
-    public static WebClient getPaymentApiWebClient() {
-        return WebClient.create("https://www.google.com");
+    public static WebClient getPaymentApiWebClient(WebClient.Builder builder) {
+        return builder
+                .baseUrl("http://localhost:8080/api/v1")
+                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .build();
     }
 
-    public Mono<String> getAuthenticationToken() {
+    public Flux<Token> getAuthenticationToken() {
         return paymentApiWebClient
                 .post()
-                .uri("/api/authentication")
+                .uri("/authentication")
                 .retrieve()
-                .bodyToMono(String.class);
+                .bodyToFlux(Token.class);
     }
 
-    public ResponseEntity<Void> postPayment(Payment payment) {
-        return paymentApiWebClient
-                .post()
-                .uri("/api/payment")
-                .body(payment, Payment.class)
-                .retrieve()
-                .toBodilessEntity()
-                .block();
-    }
 }
