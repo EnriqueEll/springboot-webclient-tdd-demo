@@ -1,5 +1,6 @@
-package com.webclient.tdd.demo;
+package com.webclient.tdd.demo.service;
 
+import com.webclient.tdd.demo.entity.Token;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

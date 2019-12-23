@@ -3,6 +3,8 @@ package com.webclient.tdd.demo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.client.WireMock;
+import com.webclient.tdd.demo.entity.Token;
+import com.webclient.tdd.demo.service.PaymentApiService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

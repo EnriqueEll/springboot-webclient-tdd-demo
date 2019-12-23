@@ -1,4 +1,4 @@
-package com.webclient.tdd.demo;
+package com.webclient.tdd.demo.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
